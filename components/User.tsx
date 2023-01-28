@@ -26,7 +26,7 @@ const User = () => {
 
   return (
     <button
-      className="transition ease-in-out delay-150 bg-blue-500 text-white px-6 py-2 font-medium rounded-md hover:brightness-105 hover:shadow-md"
+      className="transition ease-in-out delay-250 bg-blue-500 text-white px-6 py-2 font-medium rounded-md hover:brightness-105 hover:shadow-md"
       onClick={() => signIn()}
     >
       Sign in
