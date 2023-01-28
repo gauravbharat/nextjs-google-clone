@@ -18,8 +18,9 @@ const SignInPage = ({ providers }: any) => {
               width={300}
               height={150}
             />
-            <p className="text-small italic my-10 text-center">
-              This website is solely created for learning purposes.
+            <p className="text-sm italic my-10 text-center">
+              This website is created solely for learning purposes and uses
+              Google's OAuth 2.0.
             </p>
             <button
               className="transition ease-in-out delay-150 bg-red-400 rounded-lg text-white p-3 hover:bg-red-500"
