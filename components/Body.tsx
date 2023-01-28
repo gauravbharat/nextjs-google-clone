@@ -1,12 +1,25 @@
 import { kGoogleLogoSrc } from "@/helpers/constants";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useRef } from "react";
 
 const Body = () => {
+  const router = useRouter();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const searchHandler = (e: any) => {
+    e.preventDefault();
+    const term = (searchInputRef.current?.value ?? "").trim();
+    if (term === "") return;
+
+    router.push(`/search?term=${term}`);
+  };
+
   const btnClass =
     "transition ease-in-out delay-250 p-3 rounded-md text-sm bg-[#f8f9fa] text-gray-800 hover:ring-1 hover:ring-gray-200 focus-outline-none active:ring-gray-300 hover:shadow-md";
 
   return (
-    <form className="flex flex-col items-center mt-40">
+    <form className="flex flex-col items-center mt-40" onSubmit={searchHandler}>
       <Image
         className="w-52 object-cover"
         src={kGoogleLogoSrc}
@@ -29,9 +42,8 @@ const Body = () => {
         </svg>
         <input
           type="text"
-          name=""
-          id=""
           className="flex-grow focus:outline-none"
+          ref={searchInputRef}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +57,7 @@ const Body = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row w-[50%] space-y-2 mt-8 sm:space-y-0 sm:space-x-4 justify-center">
-        <button type="button" className={btnClass}>
+        <button onClick={searchHandler} type="button" className={btnClass}>
           Google Search
         </button>
 
