@@ -1,3 +1,5 @@
+import ImageResults from "@/components/ImageResults";
+
 import SearchHeader from "@/components/SearchHeader";
 import SearchResults from "@/components/SearchResults";
 import dummyResponse from "@/dummy-response";
@@ -6,7 +8,7 @@ import { useRouter } from "next/router";
 
 const SearchPage = (props: any) => {
   const router = useRouter();
-  const { term } = router.query;
+  const { term, searchType } = router.query;
 
   const { results } = props;
 
@@ -21,8 +23,12 @@ const SearchPage = (props: any) => {
       {/* Search Header */}
       <SearchHeader />
 
-      {/* Search Results */}
-      <SearchResults results={results} />
+      {/* Search web and images results */}
+      {searchType === "image" ? (
+        <ImageResults results={results} />
+      ) : (
+        <SearchResults results={results} />
+      )}
     </div>
   );
 };
@@ -44,7 +50,7 @@ export const getServerSideProps = async (context: any) => {
   //   await fetch(`https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_API_KEY}&cx=${process.env.GOOGLE_API_CONTEXT_KEY}&q=${q}
   // `);
 
-  const results = dummyResponse; //await response.json();
+  const results = dummyResponse(searchType === "image"); //await response.json();
 
   // console.log("SearchPage : getServerSideProps", { q, results });
 
