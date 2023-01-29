@@ -5,8 +5,33 @@ const SearchResults = ({ results }: any) => {
         About {results.searchInformation.formattedTotalResults} results (
         {results.searchInformation.formattedSearchTime} seconds)
       </p>
+      {results.items.map((result: any) => (
+        <div className="max-w-xl mb-8" key={result.link}>
+          <div className="group">
+            <a className="text-sm truncate" href={result.link}>
+              {result.formattedUrl}
+            </a>
+            <a
+              className="group-hover:underline decoration-blue-800"
+              href={result.link}
+            >
+              <h2 className="truncate text-xl font-medium text-blue-800">
+                {result.title}
+              </h2>
+            </a>
+            <p
+              className="text-gray-600 text-sm"
+              dangerouslySetInnerHTML={{ __html: `${result.htmlSnippet}` }}
+            ></p>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
 
 export default SearchResults;
+
+// const htmlSnippet = {
+//   __html: `Varhadi Chicken by Ms Uzma Ahmad using Varhadi Masala For recipe visit - https://veerappa.in/varhadi-chicken-by-uzma-ahmad/… Less. <b>Gaurav Mendse</b>.`,
+// };
