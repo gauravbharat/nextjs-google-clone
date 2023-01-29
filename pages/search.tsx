@@ -46,11 +46,11 @@ export const getServerSideProps = async (context: any) => {
     start,
   });
 
-  // const response =
-  //   await fetch(`https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_API_KEY}&cx=${process.env.GOOGLE_API_CONTEXT_KEY}&q=${q}
-  // `);
+  const response =
+    await fetch(`https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_API_KEY}&cx=${process.env.GOOGLE_API_CONTEXT_KEY}&q=${q}
+  `);
 
-  const results = dummyResponse(searchType === "image"); //await response.json();
+  const results = await response.json(); // dummyResponse(searchType === "image");
 
   // console.log("SearchPage : getServerSideProps", { q, results });
 
