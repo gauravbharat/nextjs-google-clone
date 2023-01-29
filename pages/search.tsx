@@ -28,11 +28,17 @@ const SearchPage = (props: any) => {
 };
 
 export const getServerSideProps = async (context: any) => {
-  const { term, searchType } = context.query;
+  const { term, searchType, start = 1 } = context.query;
 
-  const q = `${term}${!!searchType ? "&searchType=" + searchType : ""}`;
+  const q = `${term}${
+    !!searchType ? "&searchType=" + searchType : ""
+  }&start=${start}`;
 
-  console.log("SearchPage : getServerSideProps", { term, searchType });
+  console.log("SearchPage : getServerSideProps", {
+    term,
+    searchType,
+    start,
+  });
 
   // const response =
   //   await fetch(`https://www.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_API_KEY}&cx=${process.env.GOOGLE_API_CONTEXT_KEY}&q=${q}

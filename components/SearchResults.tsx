@@ -1,3 +1,5 @@
+import PaginationButtons from "./PaginationButtons";
+
 const SearchResults = ({ results }: any) => {
   return (
     <div className="w-full mx-auto px-3 sm:pl-[5%] md:pl-[14%] lg:pl-52">
@@ -26,12 +28,11 @@ const SearchResults = ({ results }: any) => {
           </div>
         </div>
       ))}
+      <PaginationButtons
+        formattedTotalResults={results.searchInformation.formattedTotalResults}
+      />
     </div>
   );
 };
 
 export default SearchResults;
-
-// const htmlSnippet = {
-//   __html: `Varhadi Chicken by Ms Uzma Ahmad using Varhadi Masala For recipe visit - https://veerappa.in/varhadi-chicken-by-uzma-ahmad/… Less. <b>Gaurav Mendse</b>.`,
-// };
