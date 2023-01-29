@@ -2,7 +2,8 @@ import { kGoogleLogoSrc } from "@/helpers/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import SearchHeaderOptions from "./SearchHeaderOptions";
 import ClearIcon from "./ui/ClearIcon";
 import MicrophoneIcon from "./ui/MicrophoneIcon";
 import SearchIcon from "./ui/SearchIcon";
@@ -11,7 +12,7 @@ import User from "./User";
 const SearchHeader = () => {
   const router = useRouter();
 
-  const { term } = router.query;
+  const { term, searchType } = router.query;
 
   const [searchText, setSearchText] = useState(term as string);
 
@@ -20,7 +21,7 @@ const SearchHeader = () => {
     const term = (searchText ?? "").trim();
     if (term === "") return;
 
-    router.push(`/search?term=${term}`);
+    router.push(`/search?term=${term}&searchType=`);
   };
 
   // console.log("SearchHeader", { term, searchText });
@@ -61,6 +62,7 @@ const SearchHeader = () => {
         </form>
         <User customClass="ml-auto" />
       </div>
+      <SearchHeaderOptions />
     </header>
   );
 };
