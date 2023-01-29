@@ -6,22 +6,23 @@ import { useRouter } from "next/router";
 
 const SearchPage = (props: any) => {
   const router = useRouter();
-
   const { term } = router.query;
+
+  const { results } = props;
 
   console.log("SearchPage", { props });
 
   return (
     <div>
       <Head>
-        <title>Search Page</title>
+        <title>{term} - Search page</title>
       </Head>
 
       {/* Search Header */}
       <SearchHeader />
 
       {/* Search Results */}
-      <SearchResults />
+      <SearchResults results={results} />
     </div>
   );
 };
