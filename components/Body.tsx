@@ -55,6 +55,7 @@ const Body = () => {
           type="text"
           className="flex-grow focus:outline-none"
           ref={searchInputRef}
+          style={{ backgroundColor: "inherit" }}
         />
         <MicrophoneIcon customClass="w-5 h-5 ml-2" />
       </div>
