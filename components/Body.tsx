@@ -1,7 +1,8 @@
 import { kGoogleLogoSrc } from "@/helpers/constants";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import LoadingIcon from "./ui/LoadingIcon";
 import MicrophoneIcon from "./ui/MicrophoneIcon";
 import SearchIcon from "./ui/SearchIcon";
 
@@ -9,10 +10,29 @@ const Body = () => {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const [feelingLuckyLoading, setFeelingLuckyLoading] = useState(false);
+
   const searchHandler = (e: any) => {
     e.preventDefault();
     const term = (searchInputRef.current?.value ?? "").trim();
     if (term === "") return;
+
+    router.push(`/search?term=${term}&searchType=`);
+  };
+
+  const luckySearchHandler = async () => {
+    setFeelingLuckyLoading(true);
+    const response = await fetch(`https://random-word-api.herokuapp.com/word`);
+
+    const data = await response.json();
+
+    const term = data[0] ?? "lucky";
+
+    console.log("Body : luckySearchHandler", {
+      term,
+    });
+
+    setFeelingLuckyLoading(false);
 
     router.push(`/search?term=${term}&searchType=`);
   };
@@ -44,8 +64,8 @@ const Body = () => {
           Google Search
         </button>
 
-        <button type="button" className={btnClass}>
-          I'm Feeling Lucky
+        <button type="button" className={btnClass} onClick={luckySearchHandler}>
+          {feelingLuckyLoading ? <LoadingIcon /> : <>I&apos;m Feeling Lucky </>}
         </button>
       </div>
     </form>
