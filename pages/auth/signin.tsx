@@ -4,6 +4,14 @@ import { getProviders, signIn } from "next-auth/react";
 import Image from "next/image";
 
 const SignInPage = ({ providers }: any) => {
+  const handleSignIn = (provider: any) => {
+    try {
+      signIn(provider.id, { callbackUrl: "/" });
+    } catch (error) {
+      console.log("SignInPage : handleSignIn", { error });
+    }
+  };
+
   return (
     <>
       <Header />
@@ -24,7 +32,7 @@ const SignInPage = ({ providers }: any) => {
             </p>
             <button
               className="transition ease-in-out delay-150 bg-red-400 rounded-lg text-white p-3 hover:bg-red-500"
-              onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+              onClick={() => handleSignIn(provider)}
             >
               Sign in with {provider.name}
             </button>

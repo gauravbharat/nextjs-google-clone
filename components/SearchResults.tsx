@@ -7,7 +7,7 @@ const SearchResults = ({ results }: any) => {
         About {results.searchInformation.formattedTotalResults} results (
         {results.searchInformation.formattedSearchTime} seconds)
       </p>
-      {results.items.map((result: any) => (
+      {results?.items?.map((result: any) => (
         <div className="max-w-xl mb-8" key={result.link}>
           <div className="group">
             <a className="text-sm truncate" href={result.link}>

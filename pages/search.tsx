@@ -2,7 +2,6 @@ import ImageResults from "@/components/ImageResults";
 
 import SearchHeader from "@/components/SearchHeader";
 import SearchResults from "@/components/SearchResults";
-import dummyResponse from "@/dummy-response";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -24,10 +23,19 @@ const SearchPage = (props: any) => {
       <SearchHeader />
 
       {/* Search web and images results */}
-      {searchType === "image" ? (
-        <ImageResults results={results} />
+      {!!results?.error ? (
+        <div className="pl-16 mt-10 text-red-700 text-xl">
+          <p>{results.error.status}</p>
+          <p>{results.error.message}</p>
+        </div>
       ) : (
-        <SearchResults results={results} />
+        <>
+          {searchType === "image" ? (
+            <ImageResults results={results} />
+          ) : (
+            <SearchResults results={results} />
+          )}
+        </>
       )}
     </div>
   );
@@ -52,7 +60,13 @@ export const getServerSideProps = async (context: any) => {
 
   const results = await response.json(); // dummyResponse(searchType === "image");
 
-  // console.log("SearchPage : getServerSideProps", { q, results });
+  if (!results) {
+    return {
+      props: {},
+    };
+  }
+
+  console.log("SearchPage : getServerSideProps", { q, results });
 
   return {
     props: { results },
